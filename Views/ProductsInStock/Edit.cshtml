@@ -1,0 +1,53 @@
+﻿@model WebCurs.models.ProductInStock
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@if (User.IsInRole("PurchaseManager") || User.IsInRole("Admin") || User.IsInRole("OrderManager") || User.IsInRole("ProductManager"))
+{
+    <h1>Редактировать</h1>
+
+    <h4>Товары в наличии</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="DateChange" class="control-label"></label>
+                    <input asp-for="DateChange" class="form-control" />
+                    <span asp-validation-for="DateChange" class="text-danger"></span>
+                </div>
+                <!-- Убрал выбор ProductID из формы -->
+                <div class="form-group">
+                    <label asp-for="MeasurementID" class="control-label"></label>
+                    <select asp-for="MeasurementID" class="form-control" asp-items="@ViewBag.MeasurementID"></select>
+                    <span asp-validation-for="MeasurementID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quantity" class="control-label"></label>
+                    <input asp-for="Quantity" class="form-control" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Обратно к списку</a>
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+@if (!User.IsInRole("PurchaseManager") && !User.IsInRole("Admin") && !User.IsInRole("OrderManager") && !User.IsInRole("ProductManager"))
+{
+    <h1>Access Denied</h1>
+}

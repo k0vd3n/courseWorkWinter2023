@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebCurs.models.ProductInStock>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@if (User.IsInRole("OrderManager") || User.IsInRole("PurchaseManager") || User.IsInRole("ProductManager") || User.IsInRole("Admin") || User.IsInRole("Customer"))
+{
+    <h1>Товары в наличии</h1>
+    @if (User.IsInRole("PurchaseManager") || User.IsInRole("Admin") || User.IsInRole("ProductManager"))
+    {
+        <p>
+            <a asp-action="Create">Добавить товар</a>
+        </p>
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateChange)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Measurement)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateChange)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Measurement.Measurement)
+                    </td>
+                    <td>
+                        @if (User.IsInRole("PurchaseManager") || User.IsInRole("Admin") || User.IsInRole("OrderManager") || User.IsInRole("ProductManager"))
+                        {
+                            <p>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a>
+                            </p>
+                        }
+
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробности</a> |
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (!User.IsInRole("ProductManager") && !User.IsInRole("OrderManager") && !User.IsInRole("Admin") && !User.IsInRole("PurchaseManager") && !User.IsInRole("Customer"))
+{
+    <h1>Access Denied</h1>
+}
+

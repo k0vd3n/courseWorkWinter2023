@@ -1,0 +1,45 @@
+﻿@model WebCurs.models.ProductInStock
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Подробности</h1>
+
+<div>
+    <h4>Товары в наличии</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateChange)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateChange)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Product)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Product.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Measurement)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Measurement.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (!User.IsInRole("PurchaseManager") && !User.IsInRole("Admin") && !User.IsInRole("OrderManager") && !User.IsInRole("ProductManager"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Редактировать</a>
+    }
+    <a asp-action="Index">Обратно к списку</a>
+</div>

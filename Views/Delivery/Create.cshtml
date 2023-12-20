@@ -1,0 +1,45 @@
+﻿@model WebApplication01.Models.Deliver
+
+@{
+    ViewData["Title"] = "Создать";
+}
+
+<h1>Create</h1>
+@if (User.IsInRole("OrderManager") || User.IsInRole("PurchaseManager") || User.IsInRole("Admin"))
+{
+    <h4>Deliver</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="DeliveryType" class="control-label"></label>
+                    <input asp-for="DeliveryType" class="form-control" />
+                    <span asp-validation-for="DeliveryType" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Обратно к списку</a>
+    </div>
+
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<style>
+    h1.access-denied {
+        color: red;
+    }
+</style>
+@if (!User.IsInRole("OrderManager") && !User.IsInRole("PurchaseManager") && !User.IsInRole("Admin"))
+{
+    <h1 class="access-denied">Access Denied</h1>
+}

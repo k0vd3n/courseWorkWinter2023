@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WebApplication01.Models.Batche>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Партии</h1>
+@if (User.IsInRole("OrderManager") || User.IsInRole("PurchaseManager") || User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Создать запись</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BatchSize)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BatchCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCostChange)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BatchSize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BatchCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCostChange)
+            </td>
+            <td>
+                    @if (User.IsInRole("OrderManager") || User.IsInRole("PurchaseManager") || User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a>
+                    }
+                <a asp-action="Details" asp-route-id="@item.Id">Подробности</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,54 @@
+﻿@model WebApplication01.Models.Batche
+
+@{
+    ViewData["Title"] = "Create";
+}
+@if (User.IsInRole("OrderManager") || User.IsInRole("PurchaseManager") || User.IsInRole("Admin"))
+{
+    <h1>Создать запись</h1>
+
+    <h4>Партии</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="BatchSize" class="control-label"></label>
+                    <input asp-for="BatchSize" class="form-control" />
+                    <span asp-validation-for="BatchSize" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BatchCost" class="control-label"></label>
+                    <input asp-for="BatchCost" class="form-control" />
+                    <span asp-validation-for="BatchCost" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateCostChange" class="control-label"></label>
+                    <input asp-for="DateCostChange" class="form-control" />
+                    <span asp-validation-for="DateCostChange" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Обратно к списку</a>
+    </div>
+
+}
+<style>
+    h1.access-denied {
+        color: red;
+    }
+</style>
+@if (!User.IsInRole("OrderManager") && !User.IsInRole("PurchaseManager") && !User.IsInRole("Admin"))
+{
+    <h1 class="access-denied">Access denied</h1>
+}
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

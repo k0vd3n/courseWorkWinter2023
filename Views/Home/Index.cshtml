@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Добро пожаловать</h1>
+
+    @if (User.IsInRole("Vendor"))
+    {
+        <p>Здравствуйте, поставщик! Этот контент предназначен для поставщиков.</p>
+        <a class="btn btn-primary" href="/VendorPurchase">Поставки</a>
+        <a class="btn btn-primary" href="/PurchasePositions">Позиции поставок</a>
+        <a class="btn btn-primary" href="/PurchaseBatchCustomers">Партии</a>
+        <a class="btn btn-primary" href="/VendorTransfers">Денежные переводы</a>
+        <a class="btn btn-primary" href="/VendorRefund">Возвраты</a>
+        <a class="btn btn-primary" href="/ReasonsVendorRefund">Причины возвратов</a>
+        <a class="btn btn-primary" href="/Products">Товары</a>
+        <a class="btn btn-primary" href="/ChangingPriceOfGoodsPurchase">Изменяющаяся цена товара на поставку</a>
+        
+    }
+    else if (User.IsInRole("Customer"))
+    {
+        <p>Здравствуйте, клиент! Этот контент предназначен для клиентов.</p>
+        <a class="btn btn-primary" href="/Orders">Заказы</a>
+        <a class="btn btn-primary" href="/OrderPositions">Позиции заказа</a>
+        <a class="btn btn-primary" href="/OrderBatchCustomers">Партии</a>
+        <a class="btn btn-primary" href="/CustomerTransfers">Денежные переводы</a>
+        <a class="btn btn-primary" href="/CustomerRefund">Возвраты</a>
+        <a class="btn btn-primary" href="/ReasonsCustomerRefund">Причины возвратов</a>
+        <a class="btn btn-primary" href="/ProductsInStock">Товары в продаже</a>
+        <a class="btn btn-primary" href="/ChangingPriceOfGoodsOrders">Изменяющаяся цена товаров</a>
+        
+    }
+    else if (User.IsInRole("CounterpartyManager"))
+    {
+        <p>Здравствуйте, менеджер по работе с контрагентами! Этот контент предназначен для менеджеров по работе с поставщиками.</p>
+        <a class="btn btn-primary" href="/Customers">Заказчики</a>
+        <a class="btn btn-primary" href="/Vendors">Поставщики</a>
+    }
+    else if (User.IsInRole("OrderManager"))
+    {
+        <p>Здравствуйте, менеджер по работе с заказами клиентов! Этот контент предназначен для менеджеров по работе с поставщиками.</p>
+        <a class="btn btn-primary" href="/Orders">Заказы клиентов</a>
+        <a class="btn btn-primary" href="/ProductsInStock">Товары в наличии</a>
+        <a class="btn btn-primary" href="/Products">Товары</a>
+        <a class="btn btn-primary" href="/CustomerRefund">Возвраты клиентов</a>
+        <a class="btn btn-primary" href="/Delivery">Доставки</a>
+        <a class="btn btn-primary" href="/Batches">Партии</a>
+        <a class="btn btn-primary" href="/Measurement">Единицы измерения</a>
+    }
+    else if (User.IsInRole("PurchaseManager"))
+    {
+        <p>Здравствуйте, менеджер по работе с поставщиками! Этот контент предназначен для менеджеров по работе с поставщиками.</p>
+        <a class="btn btn-primary" href="/VendorPurchase">Поставки</a>
+        <a class="btn btn-primary" href="/PurchasePositions">Позиции поставки</a>
+        <a class="btn btn-primary" href="/ProductsInStock">Товары в наличии</a>
+        <a class="btn btn-primary" href="/ReasonsVendorRefund">Причины возвратов</a>
+        <a class="btn btn-primary" href="/VendorRefund">Возвраты</a>
+        <a class="btn btn-primary" href="/Delivery">Доставки</a>
+        <a class="btn btn-primary" href="/Products">Товары</a>
+        <a class="btn btn-primary" href="/Batches">Партии</a>
+        <a class="btn btn-primary" href="/Measurement">Единицы измерения</a>
+    }
+    else if (User.IsInRole("ProductManager"))
+    {
+        <p>Здравствуйте, менеджер по работе с товарами! Этот контент предназначен для менеджеров по работе с товарами.</p>
+        <a class="btn btn-primary" href="/Products">Товары</a>
+        <a class="btn btn-primary" href="/ProductsInStock">Товары в наличии</a>
+        <a class="btn btn-primary" href="/ChangingPriceOfGoodsPurchase">Изменяющаяся цена на товары поставщиков</a>
+        <a class="btn btn-primary" href="/ChangingPriceOfGoodsOrders">Изменяющаяся цена товаров на продажу</a>
+    }
+    else
+    {
+        <p>Добро пожаловать! Вам не назначена какая-либо конкретная роль.</p>
+    }
+</div>
